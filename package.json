@@ -8,15 +8,18 @@
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
   "dependencies": {
+    "babel-plugin-styled-components": "^2.0.7",
     "gatsby": "^4.18.1",
     "gatsby-plugin-feed": "^4.18.1",
     "gatsby-plugin-gatsby-cloud": "^4.18.1",
     "gatsby-plugin-google-analytics": "^4.18.0",
+    "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-image": "^2.18.1",
     "gatsby-plugin-manifest": "^4.18.1",
     "gatsby-plugin-offline": "^5.18.1",
     "gatsby-plugin-react-helmet": "^5.18.0",
     "gatsby-plugin-sharp": "^4.18.1",
+    "gatsby-plugin-styled-components": "^5.18.0",
     "gatsby-remark-copy-linked-files": "^5.18.0",
     "gatsby-remark-images": "^6.18.1",
     "gatsby-remark-prismjs": "^6.18.0",
@@ -25,10 +28,13 @@
     "gatsby-source-filesystem": "^4.18.1",
     "gatsby-transformer-remark": "^5.18.1",
     "gatsby-transformer-sharp": "^4.18.1",
+    "gh-pages": "^4.0.0",
     "prismjs": "^1.28.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-helmet": "^6.1.0",
+    "styled-components": "^5.3.5",
+    "styled-reset": "^4.4.2",
     "typeface-merriweather": "0.0.72",
     "typeface-montserrat": "0.0.75"
   },
@@ -51,6 +57,8 @@
     "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "deploy": "gh-pages -d public -b deploy",
+    "prod": "yarn build && yarn deploy"
   }
 }
