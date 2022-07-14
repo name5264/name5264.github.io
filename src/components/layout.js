@@ -10,6 +10,7 @@ import {
   Wrapper,
 } from "../style/components/layout"
 import { GlobalStyle } from "../style/global"
+import { navigate } from "gatsby"
 
 const Layout = ({ location, children }) => {
   const [isDark, setIsDark] = React.useState(true)
@@ -31,8 +32,8 @@ const Layout = ({ location, children }) => {
           <Wrapper>
             <Logo>wonbin5264.dev</Logo>
             <Lists>
-              <List>Posts</List>
-              <List>Tags</List>
+              <List onClick={() => navigate("/")}>Posts</List>
+              <List onClick={() => navigate("/tags")}>Tags</List>
             </Lists>
           </Wrapper>
         </Header>
