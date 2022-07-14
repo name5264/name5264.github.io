@@ -1,7 +1,14 @@
 import * as React from "react"
 import { ThemeProvider } from "styled-components"
 import { darkTheme, lightTheme } from "../theme"
-import { Container } from "../style/components/layout"
+import {
+  Container,
+  Header,
+  List,
+  Lists,
+  Logo,
+  Wrapper,
+} from "../style/components/layout"
 import { GlobalStyle } from "../style/global"
 
 const Layout = ({ location, children }) => {
@@ -20,6 +27,15 @@ const Layout = ({ location, children }) => {
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <GlobalStyle />
       <Container data-is-root-path={isRootPath}>
+        <Header>
+          <Wrapper>
+            <Logo>wonbin5264.dev</Logo>
+            <Lists>
+              <List>Posts</List>
+              <List>Tags</List>
+            </Lists>
+          </Wrapper>
+        </Header>
         <main>{children}</main>
       </Container>
     </ThemeProvider>

@@ -132,7 +132,10 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [`Noto+Sans+KR\:100,300,400,500,700,900`],
+        fonts: [
+          `Noto+Sans+KR\:100,300,400,500,700,900`,
+          `Source+Code+Pro\:400`,
+        ],
         display: "swap",
       },
     },
