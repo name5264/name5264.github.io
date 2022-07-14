@@ -1,5 +1,6 @@
 import * as React from "react"
 import { graphql } from "gatsby"
+import kebabCase from "lodash.kebabcase"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -12,8 +13,9 @@ const BlogIndex = ({ data, location }) => {
     setWidth(window.innerWidth)
   }, [])
 
+  console.log(data)
   const siteTitle = data.site.siteMetadata?.title || `Title`
-  const posts = data.allMarkdownRemark.nodes
+  const posts = data.allMdx.nodes
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -26,8 +28,8 @@ const BlogIndex = ({ data, location }) => {
 
               return (
                 <Card
-                  to={post.fields.slug}
-                  key={post.fields.slug}
+                  to={title}
+                  key={title}
                   title={title}
                   description={post.frontmatter.description || post.excerpt}
                 />
@@ -49,16 +51,14 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
       nodes {
         excerpt
-        fields {
-          slug
-        }
         frontmatter {
-          date(formatString: "MMMM DD, YYYY")
           title
+          date
           description
+          tags
         }
       }
     }

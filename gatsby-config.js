@@ -1,15 +1,12 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `wonbin5264.dev`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `wonbin`,
+      summary: `한국사는 중학생 개발자 (TypeScript, JavaScript, Python)`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
-    social: {
-      twitter: `kylemathews`,
-    },
+    description: `중학생이 끄적이는 개발 일기장`,
+    siteUrl: `https://name5264.github.io/`,
   },
   plugins: [
     `gatsby-plugin-image`,
@@ -18,6 +15,12 @@ module.exports = {
       options: {
         path: `${__dirname}/content/blog`,
         name: `blog`,
+      },
+    },
+    {
+      resolve: "gatsby-plugin-page-creator",
+      options: {
+        path: `${__dirname}/content/blog`,
       },
     },
     {
@@ -137,6 +140,13 @@ module.exports = {
           `Source+Code+Pro\:400`,
         ],
         display: "swap",
+      },
+    },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`, `.md`],
+        defaultLayouts: {},
       },
     },
   ],
