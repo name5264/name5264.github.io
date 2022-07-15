@@ -8,13 +8,19 @@ import {
   Container,
   Content,
   Header,
+  Line,
+  TagsWapper,
   Title,
   Wrapper,
 } from "../style/templates/blog-post"
+import { MDXRenderer } from "gatsby-plugin-mdx"
+import { MDXProvider } from "@mdx-js/react"
+import components from "../components/codeBlock"
+import Tag from "../components/tag"
 
 const BlogPostTemplate = ({ data, location }) => {
   console.log(data)
-  const post = data.Mdx
+  const post = data.mdx
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
   const date = new Date(post.frontmatter.date)
@@ -34,11 +40,18 @@ const BlogPostTemplate = ({ data, location }) => {
               {String(date.getMonth() + 1).padStart(2, "0")}월{" "}
               {String(date.getDate()).padStart(2, "0")}일
             </CDate>
+            <TagsWapper>
+              {post.frontmatter.tags.map(tagName => (
+                <Tag tagName={tagName}></Tag>
+              ))}
+            </TagsWapper>
           </Header>
-          <Content
-            dangerouslySetInnerHTML={{ __html: post.body }}
-            itemProp="articleBody"
-          />
+          <Line />
+          <Content>
+            <MDXProvider components={components}>
+              <MDXRenderer>{post.body}</MDXRenderer>
+            </MDXProvider>
+          </Content>
           <nav className="blog-post-nav">
             <ul
               style={{
@@ -71,63 +84,6 @@ const BlogPostTemplate = ({ data, location }) => {
   )
 }
 
-// const BlogPostTemplate = ({ data, location }) => {
-//   const post = data.markdownRemark
-//   const siteTitle = data.site.siteMetadata?.title || `Title`
-//   const { previous, next } = data
-
-//   return (
-//     <Layout location={location} title={siteTitle}>
-//       <Seo
-//         title={post.frontmatter.title}
-//         description={post.frontmatter.description || post.excerpt}
-//       />
-//       <article
-//         className="blog-post"
-//         itemScope
-//         itemType="http://schema.org/Article"
-//       >
-//         <header>
-//           <h1 itemProp="headline">{post.frontmatter.title}</h1>
-//           <p>{post.frontmatter.date}</p>
-//         </header>
-//         <section
-//           dangerouslySetInnerHTML={{ __html: post.html }}
-//           itemProp="articleBody"
-//         />
-//         <hr />
-//         <footer></footer>
-//       </article>
-//       <nav className="blog-post-nav">
-//         <ul
-//           style={{
-//             display: `flex`,
-//             flexWrap: `wrap`,
-//             justifyContent: `space-between`,
-//             listStyle: `none`,
-//             padding: 0,
-//           }}
-//         >
-//           <li>
-//             {previous && (
-//               <Link to={previous.fields.slug} rel="prev">
-//                 ← {previous.frontmatter.title}
-//               </Link>
-//             )}
-//           </li>
-//           <li>
-//             {next && (
-//               <Link to={next.fields.slug} rel="next">
-//                 {next.frontmatter.title} →
-//               </Link>
-//             )}
-//           </li>
-//         </ul>
-//       </nav>
-//     </Layout>
-//   )
-// }
-
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
@@ -149,6 +105,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        tags
       }
     }
     previous: mdx(id: { eq: $previousPostId }) {
@@ -157,6 +114,7 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
+        tags
       }
     }
     next: mdx(id: { eq: $nextPostId }) {

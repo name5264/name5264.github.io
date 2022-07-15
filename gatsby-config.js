@@ -143,10 +143,9 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: "gatsby-plugin-mdx",
       options: {
-        extensions: [`.mdx`, `.md`],
-        defaultLayouts: {},
+        extensions: [".mdx", ".md"],
       },
     },
   ],

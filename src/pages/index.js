@@ -28,10 +28,11 @@ const BlogIndex = ({ data, location }) => {
 
               return (
                 <Card
-                  to={title}
+                  to={`/post/${title}/`}
                   key={title}
                   title={title}
                   description={post.frontmatter.description || post.excerpt}
+                  tag={post.frontmatter.tags}
                 />
               )
             })}
