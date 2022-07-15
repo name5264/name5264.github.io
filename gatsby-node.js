@@ -19,6 +19,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             id
             frontmatter {
               title
+              tags
             }
           }
         }
@@ -34,6 +35,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return
   }
 
+  let tags = new Set() // 3. set to store tags
   const posts = result.data.allMdx.nodes
 
   // Create blog posts pages
@@ -56,6 +58,24 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       })
     })
   }
+  // 4. get tags from post
+  if (posts.frontmatter.tags) {
+    posts.frontmatter.tags.forEach(tag => {
+      tags.add(tag)
+    })
+  }
+
+  // 5. create tag pages
+  const tagTemplate = path.resolve("src/templates/tags.js")
+  tags.forEach(tag => {
+    createPage({
+      path: `/tags/${tag}/`,
+      component: tagTemplate,
+      context: {
+        tag,
+      },
+    })
+  })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
