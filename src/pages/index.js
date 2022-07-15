@@ -9,13 +9,14 @@ import Card from "../components/card"
 
 const BlogIndex = ({ data, location }) => {
   const [width, setWidth] = React.useState(0)
+  const [posts, setPosts] = React.useState([])
   React.useEffect(() => {
     setWidth(window.innerWidth)
+    setPosts(data.allMdx.nodes)
   }, [])
 
   console.log(data)
   const siteTitle = data.site.siteMetadata?.title || `Title`
-  const posts = data.allMdx.nodes
 
   return (
     <Layout location={location} title={siteTitle}>
