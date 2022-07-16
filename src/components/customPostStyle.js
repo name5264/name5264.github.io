@@ -3,11 +3,14 @@ import Highlight, { defaultProps } from "prism-react-renderer"
 import {
   Code,
   LineNumber,
-  MenuBar,
-  FristCircle,
-  SecondCircle,
-  ThirdCircle,
-} from "../style/components/codeBlock"
+  Blockquote,
+  H1,
+  H2,
+  TitleLine,
+  Sup,
+  SubTitleLine,
+  H3,
+} from "../style/components/customPostStyle"
 
 const cdBlock = props => {
   const className = props.children.props.className || ""
@@ -24,17 +27,13 @@ const cdBlock = props => {
     >
       {({ className, _, tokens, getLineProps, getTokenProps }) => (
         <Code className={className}>
-          <MenuBar>
-            <FristCircle />
-            <SecondCircle />
-            <ThirdCircle />
-          </MenuBar>
           {tokens.map((line, i) => (
             <div key={i} {...getLineProps({ line, key: i })}>
-              <LineNumber>{i + 1}</LineNumber>
+              <LineNumber>{`${i + 1}`.padStart(2, "\uffa0")}</LineNumber>
               {line.map((token, key) => (
                 <span key={key} {...getTokenProps({ token, key })} />
               ))}
+              {"  "}
             </div>
           ))}
         </Code>
@@ -43,6 +42,43 @@ const cdBlock = props => {
   )
 }
 
-export default {
-  pre: props => cdBlock(props),
+const blockquote = ({ children }) => (
+  <Blockquote.Container>
+    <Blockquote.Hr /> {children}
+  </Blockquote.Container>
+)
+
+const h1 = ({ children }) => (
+  <>
+    <H1>{children}</H1>
+    <TitleLine />
+  </>
+)
+const h2 = ({ children }) => (
+  <>
+    <H2>{children}</H2>
+    <TitleLine />
+  </>
+)
+
+const h3 = ({ children }) => (
+  <>
+    <H3>- {children}</H3>
+    <SubTitleLine align="left" />
+  </>
+)
+
+const a = ({ href, children }) => {
+  return <Sup href={href}>[{children}]</Sup>
 }
+
+const components = {
+  pre: props => cdBlock(props),
+  blockquote: props => blockquote(props),
+  h1: props => h1(props),
+  h2: props => h2(props),
+  h3: props => h3(props),
+  a: props => a(props),
+}
+
+export default components

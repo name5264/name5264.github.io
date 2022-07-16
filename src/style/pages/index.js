@@ -9,7 +9,7 @@ export const CardContainer = styled.div`
   display: grid;
   grid-template-columns: ${props => {
     const cardNumber =
-      Math.floor((props.width * 9) / 10 / 250) == 0
+      Math.floor((props.width * 9) / 10 / 250) === 0
         ? 1
         : Math.floor((props.width * 9) / 10 / 250)
     let returnStr = "250px"

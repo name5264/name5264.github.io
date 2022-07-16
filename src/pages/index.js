@@ -1,6 +1,5 @@
 import * as React from "react"
 import { graphql } from "gatsby"
-import kebabCase from "lodash.kebabcase"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -9,20 +8,18 @@ import Card from "../components/card"
 
 const BlogIndex = ({ data, location }) => {
   const [width, setWidth] = React.useState(0)
-  const [posts, setPosts] = React.useState([])
+  const [posts] = React.useState(data.allMdx.nodes)
   React.useEffect(() => {
     setWidth(window.innerWidth)
-    setPosts(data.allMdx.nodes)
   }, [])
 
-  console.log(data)
   const siteTitle = data.site.siteMetadata?.title || `Title`
 
   return (
     <Layout location={location} title={siteTitle}>
       <Seo title="All posts" />
       <Container>
-        {posts.length == 0 ? null : (
+        {posts.length === 0 ? null : (
           <CardContainer width={width}>
             {posts.map(post => {
               const title = post.frontmatter.title || ""
@@ -30,7 +27,7 @@ const BlogIndex = ({ data, location }) => {
               return (
                 <Card
                   to={`/post/${title}/`}
-                  key={title}
+                  key={`${title}-card`}
                   title={title}
                   description={post.frontmatter.description || post.excerpt}
                   tag={post.frontmatter.tags}

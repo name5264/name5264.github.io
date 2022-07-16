@@ -12,13 +12,15 @@ export const Header = styled.header`
   height: 100px;
   display: flex;
   justify-content: center;
+  padding: 35px 0;
 `
 
 export const Wrapper = styled.div`
   width: 90%;
   height: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: ${props => (props.isTwoLine ? `center` : `space-between`)};
+  flex-direction: ${props => (props.isTwoLine ? `column` : `row`)};
   align-items: center;
 `
 
@@ -29,10 +31,11 @@ export const Logo = styled.h1`
 `
 
 export const Lists = styled.div`
-  width: 20%;
+  width: ${props => (props.isTwoLine ? `100` : "20")}%;
   height: 100%;
   display: flex;
   align-items: center;
+  ${props => (props.isTwoLine ? `justify-content: center;` : "")}
 `
 
 export const List = styled.span`

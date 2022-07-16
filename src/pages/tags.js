@@ -3,22 +3,21 @@ import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import { Container, SubTitle, Title } from "../style/pages/404"
+import { Container } from "../style/pages"
+import Tag from "../components/tag"
 
 const NotFoundPage = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Seo title="404: not found" />
-
+      <Seo title="tags" />
       <Container>
-        <Title>404 NOT FOUND!</Title>
-        <SubTitle>
-          페이지를 찾지 못하였습니다.
-          <br />
-          Posts / Tags 를 눌러 메인페이지로 돌아가주세요.
-        </SubTitle>
+        {data.allMdx.group.map(value => (
+          <Tag tagName={value.fieldValue} key={value.fieldValue}>
+            {value.totalCount}
+          </Tag>
+        ))}
       </Container>
     </Layout>
   )
@@ -31,6 +30,12 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+      }
+    }
+    allMdx(limit: 2000) {
+      group(field: frontmatter___tags) {
+        fieldValue
+        totalCount
       }
     }
   }

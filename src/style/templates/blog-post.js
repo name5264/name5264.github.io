@@ -42,6 +42,7 @@ export const Content = styled.section`
   font-size: 1.8rem;
   font-family: "Noto Sans KR", sans-serif;
   color: ${props => props.theme.text};
+  line-height: 3rem;
 `
 
 export const Line = styled.hr`
@@ -49,4 +50,38 @@ export const Line = styled.hr`
   border: none;
   border: 1px solid ${props => props.theme.text};
   margin: 50px 0;
+`
+
+export const Footer = styled.footer`
+  width: 100%;
+`
+
+export const PageMoveContainer = styled.div`
+  width: 100%;
+  border-radius: 10px;
+  height: 60px;
+  background-color: ${props => props.theme.backgroundOnUp};
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: ${props =>
+    props.align === "left" ? `flex-start` : "flex-end"};
+  color: ${props => props.theme.text};
+`
+
+export const PageMoveTitle = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: ${props =>
+    props.align === "left" ? `flex-start` : "flex-end"};
+  margin: 0 25px;
+`
+
+export const PostTitle = styled.h1`
+  font-size: 2rem;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 500;
+  margin: 0 10px;
+  line-height: 2.5rem;
 `

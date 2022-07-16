@@ -14,10 +14,14 @@ import { navigate } from "gatsby"
 
 const Layout = ({ location, children }) => {
   const [isDark, setIsDark] = React.useState(true)
+  const [isTwoLine, setIsTowLine] = React.useState(false)
   React.useEffect(() => {
     setIsDark(
       window.matchMedia &&
         window.matchMedia("(prefers-color-scheme: dark)").matches
+    )
+    setIsTowLine(
+      window.matchMedia && window.matchMedia("(max-width: 768px)").matches
     )
   }, [])
 
@@ -29,9 +33,10 @@ const Layout = ({ location, children }) => {
       <GlobalStyle />
       <Container data-is-root-path={isRootPath}>
         <Header>
-          <Wrapper>
+          <Wrapper isTwoLine={isTwoLine}>
             <Logo>wonbin5264.dev</Logo>
-            <Lists>
+            {isTwoLine ? <br /> : null}
+            <Lists isTwoLine={isTwoLine}>
               <List onClick={() => navigate("/")}>Posts</List>
               <List onClick={() => navigate("/tags")}>Tags</List>
             </Lists>

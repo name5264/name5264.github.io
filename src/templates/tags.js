@@ -1,32 +1,46 @@
-import React from "react"
+import * as React from "react"
 
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Seo from "../components/seo"
+import { Title } from "../style/templates/tags"
+import Tag from "../components/tag"
+import Card from "../components/card"
+
+import { CardContainer, Container } from "../style/pages"
 
 const Tags = ({ pageContext, data, location }) => {
+  const [width, setWidth] = React.useState(0)
+  React.useEffect(() => {
+    setWidth(window.innerWidth)
+  }, [])
   const { tag } = pageContext
-  const { edges, totalCount } = data.allMdx
+  const { edges } = data.allMdx
   const siteTitle = data.site.siteMetadata.title
-  const tagHeader = `post${totalCount === 1 ? "" : "s"} tagged with "${tag}"`
 
   return (
     <Layout location={location} title={siteTitle}>
-      <SEO title={tagHeader} />
-      <h1>{tagHeader}</h1>
-      <ul>
-        {edges.map(({ node }) => {
-          const { title } = node.frontmatter
-          const { slug } = `/post/${title}/`
+      <Seo title={tag} />
+      <Title>
+        <Tag tagName={tag} />
+      </Title>
+      <Container>
+        <CardContainer width={width}>
+          {edges.map(({ node: { frontmatter } }) => {
+            const title = frontmatter.title || ""
 
-          return (
-            <li key={slug}>
-              <Link to={slug}>{title}</Link>
-            </li>
-          )
-        })}
-      </ul>
-      <Link to="/tags">All tags</Link>
+            return (
+              <Card
+                to={`/post/${title}/`}
+                key={`title-${tag}`}
+                title={title}
+                description={frontmatter.description}
+                tag={frontmatter.tags}
+              />
+            )
+          })}
+        </CardContainer>
+      </Container>
     </Layout>
   )
 }

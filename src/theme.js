@@ -2,12 +2,14 @@ export const darkTheme = {
   background: "#1E1E1E",
   text: "#F3F8FF",
   code: "#2A2C3F",
-  menu: ["#2939cc", "#525ecc", "#8f95cc"],
+  menu: "#202340",
+  backgroundOnUp: "#3B3A3A",
 }
 
 export const lightTheme = {
   background: "#FFFFFF",
   text: "#121212",
   code: "#EBEBEB",
-  menu: ["#111163", "#2f2fa1", "#6060e6"],
+  menu: "#b2b0eb",
+  backgroundOnUp: "#C4C4C4",
 }

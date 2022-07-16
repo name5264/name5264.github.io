@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -7,19 +7,25 @@ import {
   CDate,
   Container,
   Content,
+  Footer,
   Header,
   Line,
+  PageMoveContainer,
+  PageMoveTitle,
+  PostTitle,
   TagsWapper,
   Title,
   Wrapper,
 } from "../style/templates/blog-post"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { MDXProvider } from "@mdx-js/react"
-import components from "../components/codeBlock"
+import components from "../components/customPostStyle"
 import Tag from "../components/tag"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
+import { navigate } from "gatsby"
 
 const BlogPostTemplate = ({ data, location }) => {
-  console.log(data)
   const post = data.mdx
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
@@ -42,7 +48,7 @@ const BlogPostTemplate = ({ data, location }) => {
             </CDate>
             <TagsWapper>
               {post.frontmatter.tags.map(tagName => (
-                <Tag tagName={tagName}></Tag>
+                <Tag tagName={tagName} key={`${tagName}-postTag`}></Tag>
               ))}
             </TagsWapper>
           </Header>
@@ -52,32 +58,35 @@ const BlogPostTemplate = ({ data, location }) => {
               <MDXRenderer>{post.body}</MDXRenderer>
             </MDXProvider>
           </Content>
-          <nav className="blog-post-nav">
-            <ul
-              style={{
-                display: `flex`,
-                flexWrap: `wrap`,
-                justifyContent: `space-between`,
-                listStyle: `none`,
-                padding: 0,
-              }}
+          <Line />
+          <Footer>
+            <PageMoveContainer
+              onClick={() =>
+                previous
+                  ? navigate(`/post/${previous.frontmatter.title}`)
+                  : null
+              }
             >
-              <li>
-                {previous && (
-                  <Link to={previous.fields.slug} rel="prev">
-                    ← {previous.frontmatter.title}
-                  </Link>
-                )}
-              </li>
-              <li>
-                {next && (
-                  <Link to={next.fields.slug} rel="next">
-                    {next.frontmatter.title} →
-                  </Link>
-                )}
-              </li>
-            </ul>
-          </nav>
+              <PageMoveTitle align="left">
+                <FontAwesomeIcon icon={faAngleLeft} size="3x" />
+                <PostTitle>
+                  {previous ? previous.frontmatter.title : `이전글 없음`}
+                </PostTitle>
+              </PageMoveTitle>
+            </PageMoveContainer>
+            <PageMoveContainer
+              onClick={() =>
+                next ? navigate(`/post/${next.frontmatter.title}`) : null
+              }
+            >
+              <PageMoveTitle align="right">
+                <PostTitle>
+                  {next ? next.frontmatter.title : `다음글 없음`}
+                </PostTitle>
+                <FontAwesomeIcon icon={faAngleRight} size="3x" />
+              </PageMoveTitle>
+            </PageMoveContainer>
+          </Footer>
         </Container>
       </Wrapper>
     </Layout>
@@ -104,7 +113,6 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
-        description
         tags
       }
     }
@@ -114,7 +122,7 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
-        tags
+        description
       }
     }
     next: mdx(id: { eq: $nextPostId }) {
@@ -123,6 +131,7 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
+        description
       }
     }
   }

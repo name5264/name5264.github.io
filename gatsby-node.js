@@ -47,6 +47,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       const previousPostId = index === 0 ? null : posts[index - 1].id
       const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
 
+      if (post.frontmatter.tags) {
+        post.frontmatter.tags.forEach(tag => {
+          tags.add(tag)
+        })
+      }
+
       createPage({
         path: `/post/${post.frontmatter.title}/`,
         component: blogPost,
@@ -57,25 +63,18 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         },
       })
     })
-  }
-  // 4. get tags from post
-  if (posts.frontmatter.tags) {
-    posts.frontmatter.tags.forEach(tag => {
-      tags.add(tag)
-    })
-  }
 
-  // 5. create tag pages
-  const tagTemplate = path.resolve("src/templates/tags.js")
-  tags.forEach(tag => {
-    createPage({
-      path: `/tags/${tag}/`,
-      component: tagTemplate,
-      context: {
-        tag,
-      },
+    const tagTemplate = path.resolve("src/templates/tags.js")
+    tags.forEach(tag => {
+      createPage({
+        path: `/tag/${tag}/`,
+        component: tagTemplate,
+        context: {
+          tag,
+        },
+      })
     })
-  })
+  }
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {

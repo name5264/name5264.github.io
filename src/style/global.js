@@ -28,10 +28,10 @@ export const GlobalStyle = createGlobalStyle`
         background-color: ${props => {
           const hex = props.theme.text.trim().replace("#", "")
           const rgb =
-            3 == hex.length
+            3 === hex.length
               ? hex.match(/[a-f\d]/gi)
               : hex.match(/[a-f\d]{2}/gi).map(str => {
-                  if (str.length == 1) str = str + str
+                  if (str.length === 1) str = str + str
                   return parseInt(str, 16)
                 })
           return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`
