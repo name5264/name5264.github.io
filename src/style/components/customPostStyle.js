@@ -35,7 +35,6 @@ export const Blockquote = {
   `,
   Hr: styled.div`
     width: 5px;
-    height: 30px;
     background-color: ${props => props.theme.backgroundOnUp};
     margin-right: 15px;
   `,

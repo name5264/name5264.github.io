@@ -11,6 +11,7 @@ import {
 } from "../style/components/layout"
 import { GlobalStyle } from "../style/global"
 import { navigate } from "gatsby"
+import { Helmet } from "react-helmet"
 
 const Layout = ({ location, children }) => {
   const [isDark, setIsDark] = React.useState(true)
@@ -30,6 +31,12 @@ const Layout = ({ location, children }) => {
 
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+      <Helmet>
+        <meta
+          name="google-site-verification"
+          content="ZqSw4HXAqA9Uuz9phK4lBzs_MS5iSDS-dZz4njm-ag8"
+        />
+      </Helmet>
       <GlobalStyle />
       <Container data-is-root-path={isRootPath}>
         <Header>

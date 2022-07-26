@@ -132,3 +132,5 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
   `)
 }
+
+exports.resolvableExtensions = (data, pluginOptions) => []

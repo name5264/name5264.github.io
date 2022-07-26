@@ -6,9 +6,35 @@ module.exports = {
       summary: `한국사는 중학생 개발자 (TypeScript, JavaScript, Python)`,
     },
     description: `중학생이 끄적이는 개발 일기장`,
-    siteUrl: `https://name5264.github.io/`,
+    siteUrl: `https://name5264.github.io`,
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: [
+          "G-X8ER8DF0QH", // Google Analytics / GA
+          // optional
+        ],
+        // This object gets passed directly to the gtag config command
+        // This config will be shared across all trackingIds
+        // gtagConfig: {
+        //   optimize_id: "OPT_CONTAINER_ID",
+        //   anonymize_ip: true,
+        //   cookie_expires: 0,
+        // },
+        // This object is used for configuration specific to this plugin
+        pluginConfig: {
+          // Puts tracking script in the head instead of the body
+          head: false,
+          // Setting this parameter is also optional
+          respectDNT: true,
+          // Avoids sending pageview hits from custom paths
+          exclude: [],
+        },
+      },
+    },
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -17,12 +43,7 @@ module.exports = {
         name: `blog`,
       },
     },
-    {
-      resolve: "gatsby-plugin-page-creator",
-      options: {
-        path: `${__dirname}/content/blog`,
-      },
-    },
+
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -148,5 +169,7 @@ module.exports = {
         extensions: [".mdx", ".md"],
       },
     },
+    "gatsby-plugin-advanced-sitemap",
+    "gatsby-plugin-react-helmet",
   ],
 }

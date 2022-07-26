@@ -6,6 +6,7 @@ import Seo from "../components/seo"
 import { CardContainer, Container } from "../style/pages"
 import Card from "../components/card"
 
+
 const BlogIndex = ({ data, location }) => {
   const [width, setWidth] = React.useState(0)
   const [posts] = React.useState(data.allMdx.nodes)
@@ -17,6 +18,7 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
+
       <Seo title="All posts" />
       <Container>
         {posts.length === 0 ? null : (
