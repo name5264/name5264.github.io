@@ -2,7 +2,12 @@ import * as React from "react"
 import { Hashtag, TagContainer, TagName } from "../style/components/tags"
 import { navigate } from "gatsby"
 
-const Tag = ({ tagName, children }) => {
+interface IProps {
+  tagName: string
+  children?: JSX.Element
+}
+
+const Tag = ({ tagName, children }: IProps) => {
   if (tagName) {
     return (
       <TagContainer onClick={() => navigate(`/tag/${tagName}`)}>

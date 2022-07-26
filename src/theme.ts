@@ -4,7 +4,7 @@ export const darkTheme = {
   code: "#2A2C3F",
   menu: "#202340",
   backgroundOnUp: "#3B3A3A",
-}
+};
 
 export const lightTheme = {
   background: "#FFFFFF",
@@ -12,4 +12,6 @@ export const lightTheme = {
   code: "#EBEBEB",
   menu: "#b2b0eb",
   backgroundOnUp: "#C4C4C4",
-}
+};
+
+export type theme = typeof darkTheme;

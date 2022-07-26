@@ -171,5 +171,6 @@ module.exports = {
     },
     "gatsby-plugin-advanced-sitemap",
     "gatsby-plugin-react-helmet",
+    "gatsby-plugin-typescript",
   ],
 }

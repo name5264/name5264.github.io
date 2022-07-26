@@ -1,8 +1,8 @@
-import * as React from "react"
-import { graphql } from "gatsby"
+import * as React from "react";
+import { graphql } from "gatsby";
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Layout from "../components/layout";
+import Seo from "../components/seo";
 import {
   CDate,
   Container,
@@ -16,23 +16,22 @@ import {
   TagsWapper,
   Title,
   Wrapper,
-} from "../style/templates/blog-post"
-import { MDXRenderer } from "gatsby-plugin-mdx"
-import { MDXProvider } from "@mdx-js/react"
-import components from "../components/customPostStyle"
-import Tag from "../components/tag"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
-import { navigate } from "gatsby"
+} from "../style/templates/blog-post";
+import { MDXRenderer } from "gatsby-plugin-mdx";
+import { MDXProvider } from "@mdx-js/react";
+import components from "../components/customPostStyle";
+import Tag from "../components/tag";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { navigate } from "gatsby";
 
 const BlogPostTemplate = ({ data, location }) => {
-  const post = data.mdx
-  const siteTitle = data.site.siteMetadata?.title || `Title`
-  const { previous, next } = data
-  const date = new Date(post.frontmatter.date)
+  const post = data.mdx;
+  const { previous, next } = data;
+  const date = new Date(post.frontmatter.date);
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout>
       <Seo
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
@@ -47,7 +46,7 @@ const BlogPostTemplate = ({ data, location }) => {
               {String(date.getDate()).padStart(2, "0")}일
             </CDate>
             <TagsWapper>
-              {post.frontmatter.tags.map(tagName => (
+              {post.frontmatter.tags.map((tagName) => (
                 <Tag tagName={tagName} key={`${tagName}-postTag`}></Tag>
               ))}
             </TagsWapper>
@@ -90,10 +89,10 @@ const BlogPostTemplate = ({ data, location }) => {
         </Container>
       </Wrapper>
     </Layout>
-  )
-}
+  );
+};
 
-export default BlogPostTemplate
+export default BlogPostTemplate;
 
 export const pageQuery = graphql`
   query BlogPostBySlug(
@@ -101,11 +100,6 @@ export const pageQuery = graphql`
     $previousPostId: String
     $nextPostId: String
   ) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     mdx(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)
@@ -135,4 +129,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
